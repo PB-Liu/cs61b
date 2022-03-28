@@ -1,45 +1,77 @@
 package deque;
 
-public class ArrayDeque<T> {
-    private T[] items;
+public class ArrayDeque<T> implements Deque<T>{
+    public T[] items;
     private int size;
+    private int first;
+    private int last;
     private int nextFirst;
     private int nextLast;
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
         size = 0;
+        nextFirst = 4;
+        nextLast = 5;
     }
 
     public void addFirst(T item) {
-        if(size + 1 > items.length)
-            resize(2 * items.length, 1);
 
-        items[0] = item;
+        if (size == 0)
+            last = nextFirst;
+        else if(size == items.length)
+            resize(2 * items.length);
+
+        items[nextFirst] = item;
+        first = nextFirst;
         size++;
+
+        if (nextFirst == 0) // check if first element has reached boundary of array
+            nextFirst = items.length - 1;
+        else
+            nextFirst--;
     }
 
     public void addLast(T item) {
-        if(size + 1 > items.length)
-            resize(2 * items.length, 0);
+        if (size == 0)
+            first = nextLast;
+        else if(size == items.length)
+            resize(2 * items.length);
 
-        items[size] = item;
+        items[nextLast] = item;
+        last = nextLast;
         size++;
+
+        if (nextLast + 1 >= items.length) // if the last space in array is filled
+            nextLast = 0;
+        else
+            nextLast++;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
 
     public int size() {
         return size;
     }
 
-    private void resize(int capacity, int desPos) {
+
+    //helper function: copy original array to the middle of the new array
+    private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        System.arraycopy(items, 0, a, desPos, size);
+        int start = (capacity - size) / 2;
+        if (first < last) {
+            System.arraycopy(items, first, a, start , size);
+        } else {
+            System.arraycopy(items, first, a,start , items.length - first);
+            System.arraycopy(items, 0, a, start + items.length - first, last + 1);
+        }
         items = a;
+
+        first = start;
+        nextFirst = start - 1;
+        last = start + size - 1;
+        nextLast = start + size;
     }
+
 
     public void printDeque() {
         if (size == 0)
@@ -55,28 +87,32 @@ public class ArrayDeque<T> {
         if (size == 0)
             return null;
 
-        T result = items[0];
-        T[] newList = (T[]) new Object[8];
-        System.arraycopy(items, 1, newList, 0, size - 1);
-        items = newList;
+        T result = items[first];
+
+        nextFirst = first;
+        first = first == items.length - 1 ? 0 : first + 1;
         size--;
+
+        if (items.length >= 16 && size < items.length/4.0)
+            resize(items.length/2);
+
         return result;
 
     }
 
+
     public T removeLast() {
         if (size == 0)
             return null;
-        T result = items[size - 1];
-        items[size - 1] = null;
+
+        T result = items[last];
+
+        nextLast = last;
+        last = last == 0 ? items.length - 1 : last - 1;
         size--;
 
-        if (items.length >= 16 && size < items.length/4.0){
-            if (size <= 16)
-                resize(16, 0);
-            else
-                resize(size, 0);
-        }
+        if (items.length >= 16 && size < items.length/4.0)
+            resize(items.length/2);
 
         return result;
 
@@ -85,7 +121,11 @@ public class ArrayDeque<T> {
     public T get(int index) {
         if (index > size - 1)
             return null;
-        return items[index];
+
+        if (index + first < items.length - 1)
+            return items[index + first];
+        else
+            return items[index + first - items.length];
     }
 
 }
