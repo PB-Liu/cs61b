@@ -112,7 +112,7 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
     }
 
     /** Helper function: parameters track the current node and its index */
-    public T getRecursiveHelper(int index, int n, Node curr) {
+    private T getRecursiveHelper(int index, int n, Node curr) {
         if (n == index)
             return curr.item;
         else

@@ -14,6 +14,4 @@ public interface Deque<T> {
     }
 
 
-    }
-
 }
