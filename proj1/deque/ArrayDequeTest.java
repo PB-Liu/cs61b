@@ -2,6 +2,9 @@ package deque;
 
 import edu.princeton.cs.algs4.StdRandom;
 import org.junit.Test;
+
+import java.util.Iterator;
+
 import static org.junit.Assert.*;
 
 public class ArrayDequeTest {
@@ -95,7 +98,20 @@ public class ArrayDequeTest {
         assertEquals(9, three);
 
 
+    }
 
+    @Test
+    /*Iterator */
+    public void iteratorTest() {
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+
+        L.addLast(0);
+        L.addLast(1);
+        L.addFirst(3);
+        L.addLast(4);
+
+        Iterator it = L.iterator();
+        assertEquals(3, it.next());
 
     }
 

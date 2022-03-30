@@ -129,7 +129,7 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
         }
 
         public boolean hasNext() {
-            return current != sentinel;
+            return current!= null && current != sentinel;
         }
 
         public T next() {
@@ -150,6 +150,10 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
         Deque obj = (Deque) o;
         Iterator it = iterator();
         int index = 0;
+
+        if(size != obj.size()) {
+            return false;
+        }
 
         while(it.hasNext()) {
             if (!it.next().equals(obj.get(index)))

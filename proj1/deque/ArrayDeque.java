@@ -151,7 +151,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         }
 
         public T next() {
-            T result = items[pos];
+            T result = items[realIndex(pos)];
             pos++;
             return result;
         }
@@ -163,10 +163,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
    public boolean equals(Object o) {
 
-       if (!(o instanceof Deque))
+       if (!(o instanceof Deque)) {
            return false;
+       }
 
        Deque obj = (Deque) o;
+       if (this.size() != obj.size()) {
+           return false;
+       }
        for (int i = 0; i < size; i++) {
            int index = realIndex(i);
            if (!items[index].equals(obj.get(i)))
