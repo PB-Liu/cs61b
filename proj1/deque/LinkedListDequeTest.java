@@ -184,4 +184,35 @@ public class LinkedListDequeTest {
             assertEquals(1, one);
 
     }
+
+    @Test
+    /* Iterator test */
+
+    public void iteratorTest() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<Integer>();
+
+        lld.addFirst(0);
+        lld.addFirst(1);
+        lld.addFirst(2);
+        lld.addFirst(3);
+
+        for (int item : lld) {
+            System.out.println(item);
+        }
+
+
+        assertTrue(lld.equals(lld));
+
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<Integer>();
+
+        lld.addFirst(3);
+        lld.addFirst(0);
+        lld.addFirst(1);
+        lld.addFirst(2);
+
+        assertTrue(!lld.equals(lld2));
+
+
+    }
+
 }

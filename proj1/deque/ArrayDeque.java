@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
-    public T[] items;
+    private T[] items;
     private int size;
     private int first;
     private int last;
@@ -21,7 +21,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
         if (size == 0)
             last = nextFirst;
-        else if(size == items.length)
+        else if (size == items.length)
             resize(2 * items.length);
 
         items[nextFirst] = item;
@@ -52,12 +52,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
 
     public int size() {
+
         return size;
     }
 
 
-    //helper function: copy original array to the middle of the new array
+      //helper function: copy original array to the middle of the new array
     private void resize(int capacity) {
+
         T[] a = (T[]) new Object[capacity];
         int start = (capacity - size) / 2;
         if (first < last) {
@@ -123,16 +125,23 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     public T get(int index) {
         if (index > size - 1)
             return null;
+        return items[realIndex(index)];
+    }
 
-        if (index + first < items.length)
-            return items[index + first];
-        else
-            return items[index + first - items.length];
+    private int realIndex(int index) {
+
+        if (index + first < items.length) {
+            return index + first;
+        }
+        else {
+            return index + first - items.length;
+        }
     }
 
 
     private class ArrayDequeIterator implements Iterator<T> {
-        int pos;
+        private int pos;
+
         public ArrayDequeIterator() {
             pos = 0;
         }
@@ -159,7 +168,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
        Deque obj = (Deque) o;
        for (int i = 0; i < size; i++) {
-           if (!items[i].equals(obj.get(i)))
+           int index = realIndex(i);
+           if (!items[index].equals(obj.get(i)))
                return false;
        }
        return true;
