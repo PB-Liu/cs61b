@@ -74,4 +74,30 @@ public class ArrayDequeTest {
         }
     }
 
+    @Test
+    /* test get*/
+    public void get() {
+        ArrayDeque<Integer> L = new ArrayDeque<>();
+
+        L.addLast(0);
+        L.addLast(1);
+        L.addFirst(3);
+        L.addLast(4);
+        int zero = L.get(0);
+        assertEquals(3, zero);
+
+
+        L.removeFirst();
+        L.addLast(7);
+        L.removeFirst();
+        L.addLast(9);
+        int three = L.get(3);
+        assertEquals(9, three);
+
+
+
+
+    }
+
+
 }

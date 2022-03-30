@@ -131,4 +131,57 @@ public class LinkedListDequeTest {
         }
 
     }
+
+    @Test
+    /*Basic add remove*/
+
+    public void basicAddRemove() {
+        LinkedListDeque<Integer> lld = new LinkedListDeque<Integer>();
+
+        lld.addFirst(0);
+        lld.addFirst(1);
+        lld.addFirst(2);
+        lld.addFirst(3);
+        lld.addFirst(4);
+        int last = lld.removeLast();
+        assertEquals(0, last);
+
+        lld.addFirst(6);
+        last = lld.removeLast();
+        assertEquals(1, last);
+
+    }
+
+    @Test
+    /*Test get*/
+    public void basicGet(){
+        LinkedListDeque<Integer> lld = new LinkedListDeque<Integer>();
+
+        lld.addFirst(0);
+        lld.addFirst(1);
+        int one = lld.get(1);
+        assertEquals(0, one);
+
+        lld.addFirst(4);
+        lld.removeLast();
+        one = lld.get(1);
+        assertEquals(1, one);
+    }
+
+    @Test //recursive get
+    public void recursiveGet() {
+
+            LinkedListDeque<Integer> lld = new LinkedListDeque<Integer>();
+
+            lld.addFirst(0);
+            lld.addFirst(1);
+            int one = lld.getRecursive(1);
+            assertEquals(0, one);
+
+            lld.addFirst(4);
+            lld.removeLast();
+            one = lld.getRecursive(1);
+            assertEquals(1, one);
+
+    }
 }

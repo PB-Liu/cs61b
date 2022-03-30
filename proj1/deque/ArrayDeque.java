@@ -124,7 +124,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         if (index > size - 1)
             return null;
 
-        if (index + first < items.length - 1)
+        if (index + first < items.length)
             return items[index + first];
         else
             return items[index + first - items.length];
