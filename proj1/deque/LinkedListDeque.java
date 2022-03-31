@@ -59,8 +59,9 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
     }
 
     public void printDeque() {
-        if (size == 0)
+        if (size == 0) {
             return;
+        }
         Node first = sentinel.next;
         while (first.next != null) {
             System.out.println(first);
@@ -83,8 +84,9 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
     }
 
     public T removeLast() {
-        if (size == 0)
+        if (size == 0) {
             return null;
+        }
 
         T result = sentinel.prev.item;
         sentinel.prev = sentinel.prev.prev;
@@ -95,8 +97,9 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
     }
 
     public T get(int index) {
-        if (index > size - 1)
+        if (index > size - 1) {
             return null;
+        }
 
         Node node = sentinel.next;
         int n = 0;
@@ -108,17 +111,20 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
     }
 
     public T getRecursive(int index){
-        if (index > size - 1)
+        if (index > size - 1) {
             return null;
+        }
         return getRecursiveHelper(index, 0, sentinel.next);
     }
 
     /** Helper function: parameters track the current node and its index */
     private T getRecursiveHelper(int index, int n, Node curr) {
-        if (n == index)
+        if (n == index) {
             return curr.item;
-        else
+        }
+        else {
             return getRecursiveHelper(index, n + 1, curr.next);
+        }
     }
 
     /**iterator */
@@ -156,10 +162,11 @@ public class LinkedListDeque<T> implements Deque<T> , Iterable<T> {
         }
 
         while(it.hasNext()) {
-            if (!it.next().equals(obj.get(index)))
+            if (!it.next().equals(obj.get(index))) {
                 return false;
-            else
+            } else {
                 index++;
+            }
         }
 
         return true;

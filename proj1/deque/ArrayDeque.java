@@ -19,40 +19,45 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
     public void addFirst(T item) {
 
-        if (size == 0)
+        if (size == 0) {
             last = nextFirst;
-        else if (size == items.length)
+        }
+        else if (size == items.length) {
             resize(2 * items.length);
-
+        }
         items[nextFirst] = item;
         first = nextFirst;
         size++;
 
-        if (nextFirst == 0) // check if first element has reached boundary of array
+        if (nextFirst == 0) {// check if first element has reached boundary of array
             nextFirst = items.length - 1;
-        else
+        }
+        else {
             nextFirst--;
+        }
     }
 
     public void addLast(T item) {
-        if (size == 0)
+        if (size == 0) {
             first = nextLast;
-        else if(size == items.length)
+        }
+        else if (size == items.length) {
             resize(2 * items.length);
+        }
 
         items[nextLast] = item;
         last = nextLast;
         size++;
 
-        if (nextLast + 1 >= items.length) // if the last space in array is filled
+        if (nextLast + 1 >= items.length) {// if the last space in array is filled
             nextLast = 0;
-        else
+        }
+        else {
             nextLast++;
+        }
     }
 
-
     public int size() {
-
         return size;
     }
 
@@ -78,8 +83,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
 
     public void printDeque() {
-        if (size == 0)
+        if (size == 0) {
             return;
+        }
         for(int i = 0; i < size; i++) {
             System.out.println(items[i]);
         }
@@ -88,8 +94,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     }
 
     public T removeFirst() {
-        if (size == 0)
+        if (size == 0) {
             return null;
+        }
 
         T result = items[first];
 
@@ -97,8 +104,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
         first = first == items.length - 1 ? 0 : first + 1;
         size--;
 
-        if (items.length >= 16 && size < items.length/4.0)
-            resize(items.length/2);
+        if (items.length >= 16 && size < items.length/4.0) {
+            resize(items.length / 2);
+        }
 
         return result;
 
@@ -106,25 +114,27 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
 
 
     public T removeLast() {
-        if (size == 0)
+        if (size == 0) {
             return null;
+        }
 
         T result = items[last];
-
         nextLast = last;
         last = last == 0 ? items.length - 1 : last - 1;
         size--;
 
-        if (items.length >= 16 && size < items.length/4.0)
-            resize(items.length/2);
+        if (items.length >= 16 && size < items.length/4.0) {
+            resize(items.length / 2);
+        }
 
         return result;
 
     }
 
     public T get(int index) {
-        if (index > size - 1)
+        if (index > size - 1) {
             return null;
+        }
         return items[realIndex(index)];
     }
 
