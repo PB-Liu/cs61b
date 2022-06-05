@@ -7,7 +7,7 @@ import java.util.Set;
 public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
     private BSTNode root;
-    public int size = 0;
+    private int size = 0;
 
     private class BSTNode {
         private K key;
@@ -85,7 +85,7 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
         printInOrder(root);
     }
 
-    public void printInOrder(BSTNode node) {
+    private void printInOrder(BSTNode node) {
         if (node != null) {
             printInOrder(node.left);
             System.out.println(node.key);
